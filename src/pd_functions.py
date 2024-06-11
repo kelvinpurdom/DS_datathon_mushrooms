@@ -78,13 +78,16 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
         pd.DataFrame([[
             st.session_state.text_input,
             row_evaoluation['tp'] /
+            (row_evaoluation['tp'] + row_evaoluation['fn']) * 0.95 + row_evaoluation['correct']/results.shape[0] * 0.05,
+            
+            row_evaoluation['tp'] /
             (row_evaoluation['tp'] + row_evaoluation['fn']),
             row_evaoluation['correct']/results.shape[0],
             row_evaoluation['fn'],
             row_evaoluation['opportunity_cost'],
             pd.Timestamp.now()
         ]],
-            columns=['Participant', 'Recall', 'Accuracy', 'Deaths', 'Edible but uneaten', 'submission_time'])
+            columns=['Participant', 'Scoring metric', 'Recall', 'Accuracy', 'Deaths', 'Edible but uneaten', 'submission_time'])
     )
 
 
@@ -96,7 +99,7 @@ def plot_submissions():
     participant_submissions = (
         pd.read_pickle('files_to_update/submissions.pkl')
         .query('Participant == @st.session_state.text_input')
-        .filter(['submission_time', 'Recall'])
+        .filter(['submission_time', 'Scoring metric'])
         .set_index('submission_time')
         .copy()
     )
@@ -137,9 +140,9 @@ def show_leaderboard():
     st.dataframe(
         pd.read_pickle('files_to_update/submissions.pkl')
         .assign(Attempts=lambda df_: df_.groupby('Participant')['Participant'].transform('count'))
-        .sort_values(['Recall', 'Accuracy'], ascending=[False, False])
+        .sort_values(['Scoring metric','Recall', 'Accuracy'], ascending=[False, False])
         .drop_duplicates(['Participant'], keep='first')
         .assign(position=lambda df_: range(1, len(df_)+1))
         .set_index('position')
-        .filter(['Participant', 'Recall', 'Accuracy', 'Deaths', 'Edible but uneaten', 'Attempts'])
+        .filter(['Participant','Scoring metric', 'Recall', 'Accuracy', 'Deaths', 'Edible but uneaten', 'Attempts'])
     )
