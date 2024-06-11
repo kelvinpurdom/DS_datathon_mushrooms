@@ -140,7 +140,7 @@ def show_leaderboard():
     st.dataframe(
         pd.read_pickle('files_to_update/submissions.pkl')
         .assign(Attempts=lambda df_: df_.groupby('Participant')['Participant'].transform('count'))
-        .sort_values(['Scoring metric','Recall', 'Accuracy'], ascending=[False, False])
+        .sort_values(['Scoring metric','Recall', 'Accuracy'], ascending=[False, False, False])
         .drop_duplicates(['Participant'], keep='first')
         .assign(position=lambda df_: range(1, len(df_)+1))
         .set_index('position')
