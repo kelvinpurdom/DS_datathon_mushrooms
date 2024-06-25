@@ -45,7 +45,7 @@ def get_ready_test(RESULTS_PATH: str, uploaded_file):
 def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
     """
     This function calculates the metrics for the test file.
-    Metrics are: Accuracy, Recall, Hospitalized, Edible but uneaten.
+    Metrics are: Accuracy, Recall, Deaths, Edible but uneaten.
     """
     results = pd.read_csv(RESULTS_PATH)
     results.columns = ['id', 'real']
@@ -87,7 +87,7 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
             row_evaoluation['opportunity_cost'],
             pd.Timestamp.now()
         ]],
-            columns=['Participant', 'Scoring metric', 'Recall', 'Accuracy', 'Hospitalized', 'Edible but uneaten', 'submission_time'])
+            columns=['Participant', 'Scoring metric', 'Recall', 'Accuracy', 'Deaths', 'Edible but uneaten', 'submission_time'])
     )
 
 
@@ -144,5 +144,5 @@ def show_leaderboard():
         .drop_duplicates(['Participant'], keep='first')
         .assign(position=lambda df_: range(1, len(df_)+1))
         .set_index('position')
-        .filter(['Participant','Scoring metric', 'Recall', 'Accuracy', 'Hospitalized', 'Edible but uneaten', 'Attempts'])
+        .filter(['Participant','Scoring metric', 'Recall', 'Accuracy', 'Deaths', 'Edible but uneaten', 'Attempts'])
     )
