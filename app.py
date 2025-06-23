@@ -41,6 +41,7 @@ def process_file_upload(uploaded_file, participant_name):
                 st.success('Dataframe uploaded successfully!')    
                 display_participant_results(participant_results)    
                 update_submissions(participant_results)
+                plot_submissions()
 
         except Exception as e:
             st.error(f"The file has a wrong format, please, review it and load it again. {str(e)}")
