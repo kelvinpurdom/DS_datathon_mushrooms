@@ -11,7 +11,7 @@ def main():
 
     # Handle file upload
     if participant_name:
-        uploaded_file = st.file_uploader("Choose a file")
+        uploaded_file = st.file_uploader("Choose a file", type="csv")
         process_file_upload(uploaded_file, participant_name)
 
     # Show leaderboard
