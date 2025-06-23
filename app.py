@@ -3,7 +3,7 @@ import pandas as pd
 from src.pd_functions import *
 
 # Path to results
-RESULTS_PATH = 'data/results.csv'
+RESULTS_PATH = 'data/true_y.csv'
 
 def main():
     # Get participant name
