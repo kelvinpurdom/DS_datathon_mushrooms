@@ -33,13 +33,7 @@ def get_ready_test(RESULTS_PATH: str, uploaded_file):
         return 0
     test.columns = ['id', 'preds']
 
-    return (
-        test
-        .assign(
-            id=lambda df_: df_['id'].astype('int32'),
-            preds=lambda df_: df_['preds'].astype('object'),
-        )
-    )
+    return test.astype('int32')
 
 
 def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
@@ -52,10 +46,7 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
 
     row_evaluation = (
         results
-        .assign(
-            id=lambda df_: df_['id'].astype('int32'),
-            real=lambda df_: df_['real'].astype('object')
-        )
+        .astype('int32')
         .merge(test, how='left', on='id')
         .assign(
             tp=lambda df_: np.where((df_['real'] == 1) & (
