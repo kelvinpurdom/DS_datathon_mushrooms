@@ -50,7 +50,7 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
     results = pd.read_csv(RESULTS_PATH)
     results.columns = ['id', 'real']
 
-    row_evaoluation = (
+    row_evaluation = (
         results
         .assign(
             id=lambda df_: df_['id'].astype('int32'),
@@ -77,14 +77,14 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
     return (
         pd.DataFrame([[
             st.session_state.text_input,
-            row_evaoluation['tp'] /
-            (row_evaoluation['tp'] + row_evaoluation['fn']) * 0.95 + row_evaoluation['correct']/results.shape[0] * 0.05,
+            row_evaluation['tp'] /
+            (row_evaluation['tp'] + row_evaluation['fn']) * 0.95 + row_evaluation['correct']/results.shape[0] * 0.05,
             
-            row_evaoluation['tp'] /
-            (row_evaoluation['tp'] + row_evaoluation['fn']),
-            row_evaoluation['correct']/results.shape[0],
-            row_evaoluation['fn'],
-            row_evaoluation['opportunity_cost'],
+            row_evaluation['tp'] /
+            (row_evaluation['tp'] + row_evaluation['fn']),
+            row_evaluation['correct']/results.shape[0],
+            row_evaluation['fn'],
+            row_evaluation['opportunity_cost'],
             pd.Timestamp.now()
         ]],
             columns=['Participant', 'Scoring metric', 'Recall', 'Accuracy', 'Hospitalized', 'Edible but uneaten', 'submission_time'])

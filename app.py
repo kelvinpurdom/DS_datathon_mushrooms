@@ -22,7 +22,7 @@ def main():
 
 def get_participant_name():
     text_input_container = st.empty()
-    text_input_container.text_input("Introduce participant name: ", key="text_input")
+    text_input_container.text_input("Enter your participant name: ", key="text_input")
 
     if st.session_state.text_input != "":
         text_input_container.empty()
