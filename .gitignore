@@ -27,3 +27,6 @@ __pycache__/
 # Virtualenvs
 .venv
 venv
+
+# Submissions
+files_to_update/submissions.pkl
