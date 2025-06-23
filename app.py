@@ -35,13 +35,12 @@ def process_file_upload(uploaded_file, participant_name):
     if uploaded_file is not None:
         try:
             test = get_ready_test(RESULTS_PATH, uploaded_file)
-            participant_results = get_metrics(RESULTS_PATH, test)
-
-            st.success('Dataframe uploaded successfully!')
-
-            display_participant_results(participant_results)
-
-            update_submissions(participant_results)
+            
+            if isinstance(test, pd.DataFrame):
+                participant_results = get_metrics(RESULTS_PATH, test)    
+                st.success('Dataframe uploaded successfully!')    
+                display_participant_results(participant_results)    
+                update_submissions(participant_results)
 
         except Exception as e:
             st.error(f"The file has a wrong format, please, review it and load it again. {str(e)}")
