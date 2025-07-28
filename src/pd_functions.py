@@ -33,13 +33,7 @@ def get_ready_test(RESULTS_PATH: str, uploaded_file):
         return 0
     test.columns = ['id', 'preds']
 
-    return (
-        test
-        .assign(
-            id=lambda df_: df_['id'].astype('int32'),
-            preds=lambda df_: df_['preds'].astype('object'),
-        )
-    )
+    return test.astype('int32')
 
 
 def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
@@ -50,12 +44,9 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
     results = pd.read_csv(RESULTS_PATH)
     results.columns = ['id', 'real']
 
-    row_evaoluation = (
+    row_evaluation = (
         results
-        .assign(
-            id=lambda df_: df_['id'].astype('int32'),
-            real=lambda df_: df_['real'].astype('object')
-        )
+        .astype('int32')
         .merge(test, how='left', on='id')
         .assign(
             tp=lambda df_: np.where((df_['real'] == 1) & (
@@ -77,14 +68,14 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
     return (
         pd.DataFrame([[
             st.session_state.text_input,
-            row_evaoluation['tp'] /
-            (row_evaoluation['tp'] + row_evaoluation['fn']) * 0.95 + row_evaoluation['correct']/results.shape[0] * 0.05,
+            row_evaluation['tp'] /
+            (row_evaluation['tp'] + row_evaluation['fn']) * 0.95 + row_evaluation['correct']/results.shape[0] * 0.05,
             
-            row_evaoluation['tp'] /
-            (row_evaoluation['tp'] + row_evaoluation['fn']),
-            row_evaoluation['correct']/results.shape[0],
-            row_evaoluation['fn'],
-            row_evaoluation['opportunity_cost'],
+            row_evaluation['tp'] /
+            (row_evaluation['tp'] + row_evaluation['fn']),
+            row_evaluation['correct']/results.shape[0],
+            row_evaluation['fn'],
+            row_evaluation['opportunity_cost'],
             pd.Timestamp.now()
         ]],
             columns=['Participant', 'Scoring metric', 'Recall', 'Accuracy', 'Hospitalized', 'Edible but uneaten', 'submission_time'])
