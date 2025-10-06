@@ -14,9 +14,7 @@ st.set_page_config(
 )
 
 # --- DARK MODE STYLING ---
-st.markdown('Welcome to the housing classification app. Please enter your first name below, then upload your results file to check your accuracy and see the leaderboard.')
-st.markdown('🤖 Good Luck and remember it is just for fun!! 🤖')
-st.markdown('🏋🏻‍♂️ Remember to fit your model on (X, y) before you predict. 🏋🏻‍♂️'
+
 st.markdown(
     """
     <style>
@@ -58,6 +56,9 @@ st.markdown(
 
 # --- TITLE HEADER ---
 st.markdown("## 🧫🍄 **Poisonous Mushroom Classification Competition** 🍄🧪")
+st.markdown('Please enter your first name below, then upload your results file to check your accuracy and see the leaderboard.')
+st.markdown('🤖 Good Luck and remember it is just for fun!! 🤖')
+st.markdown('🏋🏻‍♂️ Remember to fit your model on (X, y) before you predict. 🏋🏻‍♂️'
 
 def main():
     # Get participant name
