@@ -9,7 +9,10 @@ RESULTS_PATH = 'data/true_y.csv'
 st.set_page_config(
     page_title="🍄 Poisonous Mushroom Classifier",
     page_icon="🍄",
-    layout="centered",
+    layout="centered"
+    st.markdown('Welcome to the housing classification app. Please enter your first name below, then upload your results file to check your accuracy and see the leaderboard.')
+    st.markdown('🤖 Good Luck and remember it is just for fun!! 🤖')
+    st.markdown('🏋🏻‍♂️ Remember to fit your model on (X, y) before you predict. 🏋🏻‍♂️'),
 )
 
 # --- DARK MODE STYLING ---
