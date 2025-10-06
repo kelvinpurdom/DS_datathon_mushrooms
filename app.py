@@ -8,7 +8,6 @@ RESULTS_PATH = 'data/true_y.csv'
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="🍄 Poisonous Mushroom Classifier",
-    page_icon="🍄",
     layout="centered"
     ),
 )
