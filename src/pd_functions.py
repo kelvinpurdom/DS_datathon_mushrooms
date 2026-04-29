@@ -76,7 +76,7 @@ def get_metrics(RESULTS_PATH: str, test: pd.DataFrame):
             row_evaluation['correct']/results.shape[0],
             row_evaluation['fn'],
             row_evaluation['opportunity_cost'],
-            pd.Timestamp.now()
+            pd.Timestamp.now(tz='Europe/Berlin').tz_localize(None)
         ]],
             columns=['Participant', 'Scoring metric', 'Recall', 'Accuracy', 'Hospitalized', 'Edible but uneaten', 'submission_time'])
     )
