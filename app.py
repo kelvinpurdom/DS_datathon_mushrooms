@@ -104,10 +104,23 @@ def process_file_upload(uploaded_file, participant_name):
         except Exception as e:
             st.error(f"❌ The file format seems wrong. Please review and reload it.\n\n**Error:** {str(e)}")
 
-def display_participant_results(participant_results):
-    st.subheader('🏅 Participant Results')
-
-    st.dataframe(participant_results, use_container_width=True)
+def display_participant_results(participant_name):
+    st.subheader(f'🏅 Submission History for {participant_name}')
+    
+    try:
+        # Load the master file containing everyone's history
+        all_submissions = pd.read_pickle('files_to_update/submissions.pkl')
+        
+        # Filter down to just the current participant
+        user_history = all_submissions[all_submissions['Participant'] == participant_name]
+        
+        # Optional: Sort so the newest submission is at the top
+        user_history = user_history.sort_values(by='submission_time', ascending=False)
+        
+        st.dataframe(user_history, use_container_width=True)
+        
+    except FileNotFoundError:
+        st.info("No submission history found.")
 
 if __name__ == "__main__":
     main()
