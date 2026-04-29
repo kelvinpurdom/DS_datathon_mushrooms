@@ -91,8 +91,14 @@ def process_file_upload(uploaded_file, participant_name):
             if isinstance(test, pd.DataFrame):
                 participant_results = get_metrics(RESULTS_PATH, test)    
                 st.success('📊 Dataframe uploaded successfully!')
-                display_participant_results(participant_results)
+                
+                # 1. SAVE the new results first
                 update_submissions(participant_results)
+                
+                # 2. DISPLAY the full history by passing the participant's name
+                display_participant_results(participant_name)
+                
+                # 3. PLOT
                 plot_submissions()
 
         except Exception as e:
