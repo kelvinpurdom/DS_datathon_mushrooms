@@ -100,11 +100,7 @@ def process_file_upload(uploaded_file, participant_name):
 
 def display_participant_results(participant_results):
     st.subheader('🏅 Participant Results')
-    # Load the full history file
-    all_submissions = pd.read_csv('data/submissions.csv') 
-    
-    # Filter to show ONLY this user's attempts (every single one)
-    user_history = all_submissions[all_submissions['participant_name'] == participant_name]
+
     st.dataframe(participant_results, use_container_width=True)
 
 if __name__ == "__main__":
